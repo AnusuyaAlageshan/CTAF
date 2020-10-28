@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="Suite" verbose="1" parallel="tests" thread-count="5">
+
+	   <!-- Calling the class DemoTest to perform the execution -->
+	  
+	  
+	   <!-- Calling the below test to perform IPAccess execution -->
+	  <test name="Onnet_Order_Completion_IPAccess">
+	  	<parameter name="ScenarioName" value="NewOrder_Onnet_IPAccess"/>
+	  	<parameter name="iScript" value="3"/>
+	  	<parameter name="iSubScript" value="5"/>
+	    <classes>
+	      <class name="CTAF_NC.NC_Journey.TS_01_NCJourney"/>
+	    </classes>
+	  </test>
+	  	 	  
+</suite> <!-- Suite -->
+
