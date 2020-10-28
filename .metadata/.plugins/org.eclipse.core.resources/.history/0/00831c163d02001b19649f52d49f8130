@@ -1,0 +1,145 @@
+package com.coltnc.common.utils;
+
+import java.io.File;
+import java.io.IOException;
+import java.net.SocketTimeoutException;
+import java.util.List;
+import java.util.concurrent.TimeUnit;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.Keys;
+import org.openqa.selenium.NoSuchElementException;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.FluentWait;
+
+import com.coltnc.test.pageobjects.NC_Objects;
+import com.relevantcodes.extentreports.LogStatus;
+import com.coltnc.common.utils.DriverManager;
+import com.coltnc.common.utils.ReadData;
+import com.coltnc.common.utils.PerformAction;
+import com.coltnc.common.extentreport.*;
+import com.coltnc.common.utils.ConfigRead;
+
+public class NC_Library {
+		
+
+public WebDriver driver = DriverManager.WEB_DRIVER_THREAD_LOCAL.get();
+	
+	public NC_Objects NC_Objects;			
+
+	public NC_Library() {
+		NC_Objects = new NC_Objects();		
+		//Explore_Objects = new Explore_Objects();
+
+	}
+	public String NCLogin() throws IOException, InterruptedException {
+	/*----------------------------------------------------------------------
+	Method Name : CPQ_Login
+	Purpose     : This method will progress the login of NC application
+	Designer    : Anusuya A
+	Created on  : 28 Sep 2020 
+	Input       : String file_name, String UserType
+	Output      : True/False
+	 ----------------------------------------------------------------------*/ 
+//	Initialize the Variable	
+	new ConfigRead("Config.properties");
+	String Environment = ConfigRead.getProperty("env");
+	String NCURL = ConfigRead.getProperty("nc_url");
+	System.out.println("URL"+NCURL);
+	String NCUsername = ConfigRead.getProperty("nc_user");
+	System.out.println("NCUsername"+NCUsername);
+	String NCPassword = ConfigRead.getProperty("nc_password");
+	
+//	Launching URL
+	PerformAction.launchWebApp(NCURL);	
+	Waittilljquesryupdated();
+	WaitforNCloader();
+	
+//	Check NC Login page is launched
+	PerformAction.isPresent(NC_Objects.userNameTxb,90);
+	ExtentTestManager.getTest().log(LogStatus.PASS, "NC URL "+NCURL+" launch is successfull");
+	System.out.println("NC URL "+NCURL+" launch is successfull");
+	
+//	Performing the Login Operations
+	PerformAction.sendKeys(NC_Objects.userNameTxb, NCUsername);
+	PerformAction.sendKeys(NC_Objects.passWordTxb, NCPassword);
+	PerformAction.click(NC_Objects.loginBtn);
+	Waittilljquesryupdated();
+	
+//	Verify Login Successsfull or not
+	if ((PerformAction.waitForElementToBeVisible(NC_Objects.searchTxb, 75))&&(PerformAction.waitForElementToBeVisible(NC_Objects.usernameNCHome, 75))) {
+		Waittilljquesryupdated();
+		ExtentTestManager.getTest().log(LogStatus.PASS, "NC URL application Login with "+NCURL+" is successfull");
+		System.out.println("NC URL application Login with "+NCURL+" is successfull");
+	}
+	else {
+		ExtentTestManager.getTest().log(LogStatus.FAIL, "Login to NC application "+NCURL+" Failed");
+		System.out.println("Login to NC application "+NCURL+" Failed");
+		ExtentTestManager.getTest().log(LogStatus.INFO,ExtentTestManager.getTest().addBase64ScreenShot(DriverManager.Capturefullscreenshot()));
+		return "False";
+	}
+	
+	return "True";
+	
+}
+
+	public void Waittilljquesryupdated() throws InterruptedException, SocketTimeoutException {
+		/*----------------------------------------------------------------------
+		Method Name : Waittilljquesryupdated
+		Purpose     : This method will return whether the driver steady state is completed or not
+		Designer    : Anusuya A
+		Created on  : 28 Sep 2020 
+		Input       : None
+		Output      : None
+		 ----------------------------------------------------------------------*/ 
+//		JavascriptExecutor js = null;
+		boolean Status = false;
+		Thread.sleep(1000);
+		JavascriptExecutor js = (JavascriptExecutor) DriverManager.WEB_DRIVER_THREAD_LOCAL.get();
+		for (int i=1; i<10; i++) {
+			if (js == null) {
+				Thread.sleep(250);
+				js = (JavascriptExecutor) DriverManager.WEB_DRIVER_THREAD_LOCAL.get();
+				continue;
+			} else {
+				try {
+					while(!(js.executeScript("return document.readyState").equals("complete")))
+					{
+						Thread.sleep(500);
+					}
+					Status = true;
+					if (Status = true) { Thread.sleep(250); break; }
+				} catch (Exception e) {
+					continue;
+				}
+			}
+		}	
+	}
+
+
+	public void WaitforNCloader() throws IOException, InterruptedException {
+		/*----------------------------------------------------------------------
+		Method Name : WaitforC4Cloader
+		Purpose     : This method will wait C4C application while loading page occurs
+		Designer    : Anusuya A
+		Created on  : 28 Sep 2020 
+		Input       : None
+		Output      : None
+		 ----------------------------------------------------------------------*/ 
+		int i = 1;
+		Thread.sleep(1000);   
+		WebDriver driver = DriverManager.WEB_DRIVER_THREAD_LOCAL.get();
+	      try {
+	    	  while (NC_Objects.userNameTxb.isDisplayed()&&NC_Objects.ncimg.isDisplayed()) {   
+	    		  if (i > 60) { break; }    		  
+	    		  Thread.sleep(1000);    		  	
+	                 i = i+1;
+	            } 
+	      } catch(Exception e) {
+	      }
+	}
+
+}

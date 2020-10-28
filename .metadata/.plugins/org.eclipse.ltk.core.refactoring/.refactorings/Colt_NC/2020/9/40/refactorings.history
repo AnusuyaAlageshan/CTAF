@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename compilation unit &apos;com.coltnc.common.utils.C4C_Library.java&apos; to &apos;NC_Library.java&apos;&#x0D;&#x0A;- Original project: &apos;Colt_NC&apos;&#x0D;&#x0A;- Original element: &apos;com.coltnc.common.utils.C4C_Library.java&apos;&#x0D;&#x0A;- Renamed element: &apos;com.coltnc.common.utils.NC_Library.java&apos;" description="Rename compilation unit &apos;C4C_Library.java&apos;" flags="2" id="org.eclipse.jdt.ui.rename.compilationunit" input="/src\/main\/java=/optional=/true=/=/maven.pomderived=/true=/&lt;com.coltnc.common.utils{C4C_Library.java" name="NC_Library.java" references="false" stamp="1601277144934" version="1.0"/>
+</session>

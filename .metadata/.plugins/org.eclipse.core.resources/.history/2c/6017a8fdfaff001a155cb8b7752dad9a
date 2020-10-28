@@ -1,0 +1,20 @@
+package com.coltnc.test.pageobjects;
+
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
+
+public class NC_Objects {
+	
+		//NC Login Page
+		@FindBy(xpath = "//input[@id='user']") public WebElement userNameTxb;	//Username
+		@FindBy(xpath = "//input[@id='pass']") public WebElement passWordTxb;	//Password
+		@FindBy(xpath = "//button[@id='loginbutton']") public WebElement loginBtn;	//Login Button
+		
+		//NC HomePage
+		@FindBy(xpath = "//input[@id='fast_search_val']") public WebElement searchTxb;	//Username
+		@FindBy(xpath = "//span[text()='COLT Resource Inventory Search Folder']/parent::*") public WebElement resourceInventorySrch;	//Password
+		@FindBy(xpath = "//span[text()='COLT Circuit Search Profile']/parent::a)[2]") public WebElement circuitSrch;	//Password
+		
+		//
+
+}

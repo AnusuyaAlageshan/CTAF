@@ -1,0 +1,31 @@
+package com.coltnc.test.pageobjects;
+
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
+
+public class NC_Objects {
+	
+		//NC Login Page
+		@FindBy(xpath = "//input[@id='user']") public WebElement userNameTxb;	//Username
+		@FindBy(xpath = "//input[@id='pass']") public WebElement passWordTxb;	//Password
+		@FindBy(xpath = "//button[@id='loginbutton']") public WebElement loginBtn;	//Login Button
+		
+		//NC HomePage
+		@FindBy(xpath = "//input[@id='fast_search_val']") public WebElement searchTxb;	//Home page Search text box
+		@FindBy(xpath = "//span[text()='COLT Resource Inventory Search Folder']/parent::*") public WebElement resourceInventorySrch;	//Password
+		@FindBy(xpath = "//span[text()='COLT Circuit Search Profile']/parent::a)[2]") public WebElement circuitSrch;
+		@FindBy(xpath = "//div[@id='gen_menu_3']") public WebElement navigationLink;
+		@FindBy(xpath = "//span[text()='Documents']/parent::a)[6]") public WebElement documents;
+		
+		//Documents Page
+		@FindBy(xpath = "/html/body/div[4]/div[1]/div[1]/div[2]/h1/a") public WebElement docpageTitle;
+		@FindBy(xpath = "//*[@id=\"t91000_94060_t\"]/tbody/tr[17]/td[2]/a/span") public WebElement docLink;
+		
+		
+		//NC COLT Circuit Search Profile
+		@FindBy(xpath = "//b[contains(text(),'Circuit Name')]/following::input)[1]") public WebElement circuitName;	//circuit name
+		@FindBy(xpath = "//div/a[@id='searchButton']") public WebElement searchBtn;	//circuit search button
+		@FindBy(xpath = "//div[@id='w_searchButton']//a") public WebElement circuitsearchBtn;	//circuit search button
+		
+
+}
